@@ -2,6 +2,14 @@
 
 This is a template for a dashboard with interactive plotting that is hosted online for remote viewing. It uses the Plotly Dash framework built on top of Flask for Python.
 
+## Testing locally
+
+To test locally: `python app.py`. This will open the Dash page at the localhost: `http://127.0.0.1:8050/`
+
+To stop running the application, use `ctrl + c`
+
+
+
 
 ## Setup for development on Linux or MacOS
 
