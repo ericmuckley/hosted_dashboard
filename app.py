@@ -56,8 +56,7 @@ import dash_html_components as html
 
 # setup the server and app
 app = dash.Dash(__name__, #server=server,
-                external_stylesheets=[STYLESHEET]
-                )
+                external_stylesheets=[STYLESHEET])
 app.title = TITLE
 app.css.config.serve_locally = True
 server = app.server  # this line is required for web hosting
@@ -167,4 +166,4 @@ def update_output(value):
 
              
 if __name__ == '__main__':
-    app.run_server(debug=True)
+    app.run_server(debug=False)
