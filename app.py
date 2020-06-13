@@ -1,41 +1,20 @@
 # -*- coding: utf-8 -*-
 
-# %% Use this section to test data manipulation - doesn't need Dash
-
-
-import os
-import pathlib
 import numpy as np
 import pandas as pd
 
 
-#DATANAME = 'example_data.csv'
-#DATAPATH = os.path.join(
-#    pathlib.Path(__file__).parent.absolute(),
-#    'data',
-#    DATANAME)
-
-
-#'https://raw.githubusercontent.com/ericmuckley/hosted_dashboard/master/dataSTARRYDB_interpolated_pp_wc.csv'
-#'https://raw.githubusercontent.com/your_account_name/repository_name/master/file.csv'
-
-#DATAPATH = 'https://raw.githubusercontent.com/ericmuckley/hosted_dashboard/master/STARRYDB_interpolated_pp_wc.csv'
-
+# specify path of data file - should be in same directory as app.py
 DATAPATH = 'STARRYDB_interpolated_pp_wc.csv'
 
+# CSS stylesheet for page style - should be in same directory as app.py
+STYLESHEET = 'stylesheet.css'
 
-#df = pd.read_csv(DATAPATH)#[::500]
-
-df = pd.read_csv(DATAPATH)
-
-# use this for testing
-#df = pd.DataFrame(np.random.random((30, 4)), columns=['a','b','c','d'])
-
-title = 'STARRYDB explorer'
+# title for the browser page tab
+TITLE = 'STARRYDB explorer'
 
 
 # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 
 def get_dropdown_options(df):
     """Get the dropdown options to show for plot variables"""
@@ -45,12 +24,22 @@ def get_dropdown_options(df):
         options.append({'label': c, 'value': c_raw})
     return options
   
+    
+# import data into dataframe
+df = pd.read_csv(DATAPATH)[::500]
+# use this for fast testing
+#df = pd.DataFrame(np.random.random((30, 4)), columns=['a','b','c','d'])
+
 options = get_dropdown_options(df)
 
 
 # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 #import flask
+#server = flask.Flask(__name__)
+#server.secret_key = os.environ.get(
+#    'secret_key', str(np.random.randint(0, 1000000)))
+
 
 import dash
 import dash_core_components as dcc
@@ -59,40 +48,28 @@ import dash_html_components as html
 
 # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-# setup the server and app with stylesheet
-
-#server = flask.Flask(__name__)
-#server.secret_key = os.environ.get(
-#    'secret_key', str(np.random.randint(0, 1000000)))
-
-external_stylesheets = ['stylesheet.css']
-app = dash.Dash(__name__,
-                #server=server,
-                external_stylesheets=external_stylesheets)
-# title to give the tab in the browser
-app.title = title
-# this line is essential or app cannot be hosted online
-server = app.server
+# setup the server and app
+app = dash.Dash(__name__, #server=server,
+                external_stylesheets=[STYLESHEET])
+app.title = TITLE
+server = app.server  # this line is required for web hosting
 
 
 # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-# Put your Dash code here
+# Put your Dash layout code here
 
 # create app layout
 app.layout = html.Div(children=[
     
     # top heading
-    html.H1(children=title),
-
+    html.H1(children=TITLE),
 
     # create HTML division with paragraph for intro information
     html.Div([
         html.P([
             html.B('Dataset: '), str(DATAPATH), html.Br(),
-            html.B('Column names:'), str(list(df)), html.Br(),
             html.B('Total rows: '), str(df.shape[0]), html.Br(),
             html.B('Total columns: '), str(df.shape[1]), html.Br()])]),
-    
 
     # division for the X dropdown menu
     html.Div([
@@ -109,24 +86,20 @@ app.layout = html.Div(children=[
             options=options,
             placeholder="Select variable for Y-axis",
             style=dict(width='50%', verticalAlign="middle"))]),
-
     
     # create plot
-    #dcc.Graph(id='graph'),
-
-    #html.Div(id='x_var_display'),
-
+    dcc.Graph(id='graph'),
 
 ])
 
-"""   
+ 
 # update graph
 @app.callback(
     dash.dependencies.Output('graph', 'figure'),
     [dash.dependencies.Input('x_var_dropdown', 'value'),
      dash.dependencies.Input('y_var_dropdown', 'value')])
 def update_graph(X, Y):
-    #Update the graph when variable selections are changed
+    """Update the graph when variable selections are changed"""
     
     # take care of all edge cases in dropdown menus
     '''
@@ -146,9 +119,13 @@ def update_graph(X, Y):
         y = list(df_xy[Y])
 
     '''
-    x, y = [1,2,3], [2, 6, 9]
-    X, Y = 'X', 'Y'
     
+    x, y = [1,2,3], [2, 6, 9]
+    
+    # error catching for axis labels
+    X = 'None' if X is None else X
+    Y = 'None' if Y is None else Y
+
     record_num = 0# if y is None else len(y)
 
     return {
@@ -159,11 +136,11 @@ def update_graph(X, Y):
              'marker': {'size': 6}}
             ],
         'layout': {'title':'Plotting {} records'.format(record_num),
-                   'xaxis':{'title':X},
-                   'yaxis':{'title':Y}}}
+                   'xaxis': {'title': X},
+                   'yaxis': {'title': Y}}}
 
 
-"""
+
 
 
 '''
