@@ -84,6 +84,7 @@ app.layout = html.Div(children=[
     html.Div([
         html.P([
             html.B('Dataset: '), str(DATAPATH), html.Br(),
+            html.B('Column names:'), str(list(df)), html.Br(),
             html.B('Total rows: '), str(df.shape[0]), html.Br(),
             html.B('Total columns: '), str(df.shape[1]), html.Br()])]),
     
@@ -123,35 +124,35 @@ def update_graph(X, Y):
     """Update the graph when variable selections are changed"""
     
     # take care of all edge cases in dropdown menus
+    
+    print(X, Y)
+    
     if X is None and Y is None:
-        x, y = None, None
+        x, y = [0], [0]
     elif X is None and Y is not None:
-
-        y = np.array(df[Y].dropna())
-        x = np.arange(len(y))+1
+        y = list(df[Y].dropna())
+        x = list(len(y))+1
     elif Y is None and X is not None:
-        x = np.array(df[X].dropna())
-        y = np.zeros_like(x)
+        x = list(df[X].dropna())
+        y = list(np.zeros_like(x))
     elif X is not None and Y is not None:
         df_xy  = df[[X, Y]].dropna()
-        x = np.array(df_xy[X])
-        y = np.array(df_xy[Y])
+        x = list(df_xy[X])
+        y = list(df_xy[Y])
 
 
-    record_num = 0 if y is None else len(y)
+    record_num = 0# if y is None else len(y)
 
     return {
         'data': [
-            {'x': x,
-             'y': y,
+            {'x': [1,2,3],
+             'y': [4,15,66],
              'mode': 'markers',
-             'marker': {'size': 4}}
+             'marker': {'size': 6}}
             ],
         'layout': {'title':'Plotting {} records'.format(record_num),
                    'xaxis':{'title':X},
-                   'yaxis':{'title':Y},
-        }
-    }
+                   'yaxis':{'title':Y}}}
 
 
 
