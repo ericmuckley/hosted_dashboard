@@ -42,7 +42,7 @@ def get_dropdown_options(df):
 
 # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-import flask
+#import flask
 
 import dash
 import dash_core_components as dcc
@@ -53,13 +53,13 @@ import dash_html_components as html
 
 # setup the server and app with stylesheet
 
-server = flask.Flask(__name__)
-server.secret_key = os.environ.get(
-    'secret_key', str(np.random.randint(0, 1000000)))
+#server = flask.Flask(__name__)
+#server.secret_key = os.environ.get(
+#    'secret_key', str(np.random.randint(0, 1000000)))
 
 external_stylesheets = ['stylesheet.css']
 app = dash.Dash(__name__,
-                server=server,
+                #server=server,
                 external_stylesheets=external_stylesheets)
 
 
@@ -166,4 +166,4 @@ def update_output(value):
 
              
 if __name__ == '__main__':
-    app.run_server(debug=True)
+    app.run_server()#debug=True)
