@@ -124,7 +124,7 @@ def update_graph(X, Y):
     """Update the graph when variable selections are changed"""
     
     # take care of all edge cases in dropdown menus
-    
+    '''
     print(X, Y)
     
     if X is None and Y is None:
@@ -140,13 +140,16 @@ def update_graph(X, Y):
         x = list(df_xy[X])
         y = list(df_xy[Y])
 
-
+    '''
+    x, y = [1,2,3], [2, 6, 9]
+    X, Y = 'X', 'Y'
+    
     record_num = 0# if y is None else len(y)
 
     return {
         'data': [
-            {'x': [1,2,3],
-             'y': [4,15,66],
+            {'x': x,
+             'y': y,
              'mode': 'markers',
              'marker': {'size': 6}}
             ],
