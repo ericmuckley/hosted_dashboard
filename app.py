@@ -43,7 +43,7 @@ def get_dropdown_options(df):
         options.append({'label': c, 'value': c_raw})
     return options
   
-
+options = get_dropdown_options(df)
 
 
 # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -92,7 +92,7 @@ app.layout = html.Div(children=[
     html.Div([
         dcc.Dropdown(
             id='x_var_dropdown',
-            options=get_dropdown_options(df),
+            options=options,
             placeholder="Select variable for X-axis (optional)",
             style=dict(width='50%', verticalAlign="middle"))]),
 
@@ -100,7 +100,7 @@ app.layout = html.Div(children=[
     html.Div([
         dcc.Dropdown(
             id='y_var_dropdown',
-            options=get_dropdown_options(df),
+            options=options,
             placeholder="Select variable for Y-axis",
             style=dict(width='50%', verticalAlign="middle"))]),
 
@@ -126,15 +126,16 @@ def update_graph(X, Y):
     if X is None and Y is None:
         x, y = None, None
     elif X is None and Y is not None:
-        y = df[Y].dropna()
+
+        y = np.array(df[Y].dropna())
         x = np.arange(len(y))+1
     elif Y is None and X is not None:
-        x = df[X].dropna()
+        x = np.array(df[X].dropna())
         y = np.zeros_like(x)
     elif X is not None and Y is not None:
         df_xy  = df[[X, Y]].dropna()
-        x = df_xy[X]
-        y = df_xy[Y]
+        x = np.array(df_xy[X])
+        y = np.array(df_xy[Y])
 
 
     record_num = 0 if y is None else len(y)
