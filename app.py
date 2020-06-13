@@ -21,7 +21,7 @@ import pandas as pd
 
 #DATAPATH = 'https://raw.githubusercontent.com/ericmuckley/hosted_dashboard/master/STARRYDB_interpolated_pp_wc.csv'
 
-DATAPATH = 'dataSTARRYDB_interpolated_pp_wc.csv'
+DATAPATH = 'STARRYDB_interpolated_pp_wc.csv'
 
 
 #df = pd.read_csv(DATAPATH)#[::500]
