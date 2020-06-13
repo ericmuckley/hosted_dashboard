@@ -19,15 +19,17 @@ import pandas as pd
 #'https://raw.githubusercontent.com/ericmuckley/hosted_dashboard/master/dataSTARRYDB_interpolated_pp_wc.csv'
 #'https://raw.githubusercontent.com/your_account_name/repository_name/master/file.csv'
 
-DATAPATH = 'https://raw.githubusercontent.com/ericmuckley/hosted_dashboard/master/STARRYDB_interpolated_pp_wc.csv'
+#DATAPATH = 'https://raw.githubusercontent.com/ericmuckley/hosted_dashboard/master/STARRYDB_interpolated_pp_wc.csv'
+
+DATAPATH = 'dataSTARRYDB_interpolated_pp_wc.csv'
 
 
 #df = pd.read_csv(DATAPATH)#[::500]
 
-#df = pd.read_csv(DATAPATH)
+df = pd.read_csv(DATAPATH)
 
 # use this for testing
-df = pd.DataFrame(np.random.random((30, 4)), columns=['a','b','c','d'])
+#df = pd.DataFrame(np.random.random((30, 4)), columns=['a','b','c','d'])
 
 title = 'STARRYDB explorer'
 
@@ -67,8 +69,11 @@ external_stylesheets = ['stylesheet.css']
 app = dash.Dash(__name__,
                 #server=server,
                 external_stylesheets=external_stylesheets)
+# title to give the tab in the browser
+app.title = title
+# this line is essential or app cannot be hosted online
 server = app.server
-app.title=title
+
 
 # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 # Put your Dash code here
