@@ -26,7 +26,7 @@ def get_dropdown_options(df):
   
     
 # import data into dataframe
-df = pd.read_csv(DATAPATH)[::500]
+df = pd.read_csv(DATAPATH)
 # use this for fast testing
 #df = pd.DataFrame(np.random.random((30, 4)), columns=['a','b','c','d'])
 
@@ -77,7 +77,7 @@ app.layout = html.Div(children=[
             id='x_var_dropdown',
             options=options,
             placeholder="Select variable for X-axis (optional)",
-            style=dict(width='50%', verticalAlign="middle"))]),
+            style=dict(width='60%', verticalAlign="middle"))]),
 
     # division for the Y dropdown menu
     html.Div([
@@ -85,7 +85,7 @@ app.layout = html.Div(children=[
             id='y_var_dropdown',
             options=options,
             placeholder="Select variable for Y-axis",
-            style=dict(width='50%', verticalAlign="middle"))]),
+            style=dict(width='60%', verticalAlign="middle"))]),
     
     # create plot
     dcc.Graph(id='graph'),
@@ -114,6 +114,10 @@ def update_graph(X, Y):
         x = list(np.arange(len(y))+1)
         record_num = len(y)
         hover_text = [str(i) for i in y]
+        
+        
+        #print(np.argwhere(df[Y].notnull()))      
+        
         
     elif Y is None and X is not None:
         x = list(df[X].dropna())
