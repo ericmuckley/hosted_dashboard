@@ -56,7 +56,7 @@ server = app.server  # this line is required for web hosting
 
 
 # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-# Put your Dash layout code here
+# Put your Dash page layout code here
 
 # create app layout
 app.layout = html.Div(children=[
@@ -92,7 +92,9 @@ app.layout = html.Div(children=[
 
 ])
 
- 
+# %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+# Here, create callbacks which are used by objects on the page
+
 # update graph
 @app.callback(
     dash.dependencies.Output('graph', 'figure'),
@@ -102,45 +104,47 @@ def update_graph(X, Y):
     """Update the graph when variable selections are changed"""
     
     # take care of all edge cases in dropdown menus
-    '''
-    print(X, Y)
-    
     if X is None and Y is None:
-        x, y = [0], [0]
+        x, y = None, None
+        record_num = 0
+        hover_text = None
+
     elif X is None and Y is not None:
         y = list(df[Y].dropna())
-        x = list(len(y))+1
+        x = list(np.arange(len(y))+1)
+        record_num = len(y)
+        hover_text = [str(i) for i in y]
+        
     elif Y is None and X is not None:
         x = list(df[X].dropna())
         y = list(np.zeros_like(x))
-    elif X is not None and Y is not None:
-        df_xy  = df[[X, Y]].dropna()
-        x = list(df_xy[X])
-        y = list(df_xy[Y])
-
-    '''
+        record_num= len(y)
+        hover_text = [str(i) for i in x]
     
-    x, y = [1,2,3], [2, 6, 9]
+    elif X is not None and Y is not None:
+        dfs = df[[X, Y]].dropna()
+        x = list(dfs[X])
+        y = list(dfs[Y])
+        record_num= len(y)  
+        hover_text = [str(i) for i in y]
     
     # error catching for axis labels
     X = 'None' if X is None else X
     Y = 'None' if Y is None else Y
 
-    record_num = 0# if y is None else len(y)
 
     return {
         'data': [
             {'x': x,
              'y': y,
+             'text': hover_text,
+             'hoverinfo': 'text',
              'mode': 'markers',
              'marker': {'size': 6}}
             ],
         'layout': {'title':'Plotting {} records'.format(record_num),
                    'xaxis': {'title': X},
                    'yaxis': {'title': Y}}}
-
-
-
 
 
 '''
@@ -152,13 +156,6 @@ def update_output(value):
     return 'You have selected "{}"'.format(value)
 '''
 
-
-
-
-
-
-
-
              
 if __name__ == '__main__':
-    app.run_server(debug=False)
+    app.run_server(debug=True)

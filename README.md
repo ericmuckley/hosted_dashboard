@@ -17,15 +17,11 @@ To stop running the application, use `ctrl + c`
 * **requirements.txt**: Requirements file for installing app dependencies with pip. This is also used by the application host
 * **Procfile**: file which Heroku uses to launch app
 * **runtime.txt**: file which Heroku uses to determine which Python runtime version to use
- 
-
+* **XX.csv**: any files with **.csv** extension are data files which are called by **app.py** for plotting
 
 
 
 ## Setup for development on Linux or MacOS
-
-
-### Setup virtual development environment
 
 Install / upgrade pip: `python3 -m pip install --user --upgrade pip`
 
@@ -46,7 +42,8 @@ To export the list of installed packages as a `requirements.txt` file: `pip free
 To install packages from the requirements file: `pip install -r requirements.txt`
 
 
-### Use Git to commit to Heroku
+
+## Hosting 
 
 * Setup account on Heroku and download Heroku CLI utility
 * Navigate to project folder
