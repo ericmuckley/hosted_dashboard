@@ -10,14 +10,20 @@ import pandas as pd
 
 
 DATANAME = 'example_data.csv'
-DATAPATH = os.path.join(
-    pathlib.Path(__file__).parent.absolute(),
-    'data',
-    DATANAME)
+#DATAPATH = os.path.join(
+#    pathlib.Path(__file__).parent.absolute(),
+#    'data',
+#    DATANAME)
+
+
+#'https://raw.githubusercontent.com/ericmuckley/hosted_dashboard/master/dataSTARRYDB_interpolated_pp_wc.csv
+#'https://raw.githubusercontent.com/your_account_name/repository_name/master/file.csv'
+
+
 
 #df = pd.read_csv(DATAPATH)#[::500]
 
-df = pd.read_csv(DATAPATH)
+df = pd.read_csv(DATANAME)
 
 # use this for testing
 #df = pd.DataFrame(np.random.random((30, 4)), columns=['a','b','c','d'])
