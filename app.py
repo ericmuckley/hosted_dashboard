@@ -67,7 +67,7 @@ external_stylesheets = ['stylesheet.css']
 app = dash.Dash(__name__,
                 #server=server,
                 external_stylesheets=external_stylesheets)
-#server = app.server
+server = app.server
 app.title=title
 
 # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
