@@ -42,6 +42,8 @@ def get_dropdown_options(df):
 
 # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+import flask
+
 import dash
 import dash_core_components as dcc
 import dash_html_components as html
@@ -49,11 +51,21 @@ import dash_html_components as html
 
 # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+# setup the server and app with stylesheet
 
-# create app with stylesheet
+server = flask.Flask(__name__)
+server.secret_key = os.environ.get(
+    'secret_key', str(np.random.randint(0, 1000000)))
+
 external_stylesheets = ['stylesheet.css']
-app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
+app = dash.Dash(__name__,
+                server=server,
+                external_stylesheets=external_stylesheets)
 
+
+
+# %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+# Put your Dash code here
 
 # create app layout
 app.layout = html.Div(children=[
