@@ -24,10 +24,10 @@ DATAPATH = 'https://raw.githubusercontent.com/ericmuckley/hosted_dashboard/maste
 
 #df = pd.read_csv(DATAPATH)#[::500]
 
-df = pd.read_csv(DATAPATH)
+#df = pd.read_csv(DATAPATH)
 
 # use this for testing
-#df = pd.DataFrame(np.random.random((30, 4)), columns=['a','b','c','d'])
+df = pd.DataFrame(np.random.random((30, 4)), columns=['a','b','c','d'])
 
 title = 'STARRYDB explorer'
 
