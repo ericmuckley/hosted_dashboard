@@ -107,21 +107,21 @@ app.layout = html.Div(children=[
 
     
     # create plot
-    dcc.Graph(id='graph'),
+    #dcc.Graph(id='graph'),
 
     #html.Div(id='x_var_display'),
 
 
 ])
 
-    
+"""   
 # update graph
 @app.callback(
     dash.dependencies.Output('graph', 'figure'),
     [dash.dependencies.Input('x_var_dropdown', 'value'),
      dash.dependencies.Input('y_var_dropdown', 'value')])
 def update_graph(X, Y):
-    """Update the graph when variable selections are changed"""
+    #Update the graph when variable selections are changed
     
     # take care of all edge cases in dropdown menus
     '''
@@ -157,6 +157,8 @@ def update_graph(X, Y):
                    'xaxis':{'title':X},
                    'yaxis':{'title':Y}}}
 
+
+"""
 
 
 '''
