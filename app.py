@@ -9,21 +9,22 @@ import numpy as np
 import pandas as pd
 
 
-DATANAME = 'example_data.csv'
+#DATANAME = 'example_data.csv'
 #DATAPATH = os.path.join(
 #    pathlib.Path(__file__).parent.absolute(),
 #    'data',
 #    DATANAME)
 
 
-#'https://raw.githubusercontent.com/ericmuckley/hosted_dashboard/master/dataSTARRYDB_interpolated_pp_wc.csv
+#'https://raw.githubusercontent.com/ericmuckley/hosted_dashboard/master/dataSTARRYDB_interpolated_pp_wc.csv'
 #'https://raw.githubusercontent.com/your_account_name/repository_name/master/file.csv'
 
+DATAPATH = 'https://raw.githubusercontent.com/ericmuckley/hosted_dashboard/master/STARRYDB_interpolated_pp_wc.csv'
 
 
 #df = pd.read_csv(DATAPATH)#[::500]
 
-df = pd.read_csv(DATANAME)
+df = pd.read_csv(DATAPATH)
 
 # use this for testing
 #df = pd.DataFrame(np.random.random((30, 4)), columns=['a','b','c','d'])
@@ -82,7 +83,7 @@ app.layout = html.Div(children=[
     # create HTML division with paragraph for intro information
     html.Div([
         html.P([
-            html.B('Dataset: '), str(DATANAME), html.Br(),
+            html.B('Dataset: '), str(DATAPATH), html.Br(),
             html.B('Total rows: '), str(df.shape[0]), html.Br(),
             html.B('Total columns: '), str(df.shape[1]), html.Br()])]),
     
