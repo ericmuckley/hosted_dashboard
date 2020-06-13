@@ -9,6 +9,14 @@ To test locally: `python app.py`. This will open the Dash page at the localhost:
 To stop running the application, use `ctrl + c`
 
 
+## File description
+
+* **app.py**: Main Python file which creates the dashboard application
+* **stylesheet.css**: CSS stylesheet which is called by **app.py** for styling the dashboard
+* **tests.ipynb**: Jupyter notebook for testing basic data operations
+* **requirements.txt**: Requirements file for installing app dependencies with pip. This is also used by the application host
+
+
 
 
 ## Setup for development on Linux or MacOS
