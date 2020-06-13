@@ -16,6 +16,7 @@ TITLE = 'STARRYDB explorer'
 
 # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+
 def get_dropdown_options(df):
     """Get the dropdown options to show for plot variables"""
     options = []
@@ -23,7 +24,12 @@ def get_dropdown_options(df):
         c = c_raw.split(': ')[1] if ': ' in c_raw else c_raw
         options.append({'label': c, 'value': c_raw})
     return options
-  
+
+def get_labels(col):
+    """Get labels to use as hover text over points, based on the
+    name of the column thats being plotted"""
+    return list(df['FORMULA'].iloc[np.where(df[col].notnull())[0]])
+
     
 # import data into dataframe
 df = pd.read_csv(DATAPATH)
@@ -50,8 +56,10 @@ import dash_html_components as html
 
 # setup the server and app
 app = dash.Dash(__name__, #server=server,
-                external_stylesheets=[STYLESHEET])
+                external_stylesheets=[STYLESHEET]
+                )
 app.title = TITLE
+app.css.config.serve_locally = True
 server = app.server  # this line is required for web hosting
 
 
@@ -88,7 +96,7 @@ app.layout = html.Div(children=[
             style=dict(width='60%', verticalAlign="middle"))]),
     
     # create plot
-    dcc.Graph(id='graph'),
+    dcc.Graph(id='graph', config={"displaylogo": False})
 
 ])
 
@@ -113,29 +121,24 @@ def update_graph(X, Y):
         y = list(df[Y].dropna())
         x = list(np.arange(len(y))+1)
         record_num = len(y)
-        hover_text = [str(i) for i in y]
-        
-        
-        #print(np.argwhere(df[Y].notnull()))      
-        
+        hover_text = get_labels(Y)
         
     elif Y is None and X is not None:
         x = list(df[X].dropna())
         y = list(np.zeros_like(x))
         record_num= len(y)
-        hover_text = [str(i) for i in x]
+        hover_text = get_labels(X)
     
     elif X is not None and Y is not None:
         dfs = df[[X, Y]].dropna()
         x = list(dfs[X])
         y = list(dfs[Y])
         record_num= len(y)  
-        hover_text = [str(i) for i in y]
-    
+        hover_text = get_labels(Y)
+
     # error catching for axis labels
     X = 'None' if X is None else X
     Y = 'None' if Y is None else Y
-
 
     return {
         'data': [
@@ -148,7 +151,9 @@ def update_graph(X, Y):
             ],
         'layout': {'title':'Plotting {} records'.format(record_num),
                    'xaxis': {'title': X},
-                   'yaxis': {'title': Y}}}
+                   'yaxis': {'title': Y},
+                   'margin': {'l': 150, 'r': 150, 'b': 150, 't': 50}}
+        }
 
 
 '''
