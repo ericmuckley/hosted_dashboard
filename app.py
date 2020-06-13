@@ -20,14 +20,10 @@ DATAPATH = os.path.join(
 #DATAPATH = 'https://github.com/ericmuckley/hosted_dashboard/
 #blob/master/data/STARRYDB_interpolated_pp_wc.csv'
 
-df = pd.read_csv(DATAPATH)[::500]
-print(df.head)
+df = pd.read_csv(DATAPATH)#[::500]
 
-x_var = 'PROPERTY: Temperature (K)'
-
-
-df = pd.DataFrame(np.random.random((30, 6)),
-                  columns=['a','b','c','d','e','f'])
+# use this for testing
+#df = pd.DataFrame(np.random.random((30, 4)), columns=['a','b','c','d'])
 
 
 # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -38,7 +34,7 @@ def get_dropdown_options(df):
     options = []
     for c_raw in list(df):
         c = c_raw.split(': ')[1] if ': ' in c_raw else c_raw
-        options.append({'label': c, 'value': c})
+        options.append({'label': c, 'value': c_raw})
     return options
   
 
@@ -106,14 +102,37 @@ app.layout = html.Div(children=[
     [dash.dependencies.Input('x_var_dropdown', 'value'),
      dash.dependencies.Input('y_var_dropdown', 'value')])
 def update_graph(X, Y):
+    """Update the graph when variable selections are changed"""
+    
+    # take care of all edge cases in dropdown menus
+    if X is None and Y is None:
+        x, y = None, None
+    elif X is None and Y is not None:
+        y = df[Y].dropna()
+        x = np.arange(len(y))+1
+    elif Y is None and X is not None:
+        x = df[X].dropna()
+        y = np.zeros_like(x)
+    elif X is not None and Y is not None:
+        df_xy  = df[[X, Y]].dropna()
+        x = df_xy[X]
+        y = df_xy[Y]
+
+
+    record_num = 0 if y is None else len(y)
+
     return {
         'data': [
-            {'x': df[X].values,
-             'y': df[Y].values,
-             'name': Y}],
-        'layout': {'title':'{} vs. {}'.format(Y, X)},
-        'config': {'displaylogo': False}
+            {'x': x,
+             'y': y,
+             'mode': 'markers',
+             'marker': {'size': 4}}
+            ],
+        'layout': {'title':'Plotting {} records'.format(record_num),
+                   'xaxis':{'title':X},
+                   'yaxis':{'title':Y},
         }
+    }
 
 
 
