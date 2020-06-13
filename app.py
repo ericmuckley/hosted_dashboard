@@ -9,7 +9,7 @@ import numpy as np
 import pandas as pd
 
 
-DATANAME = 'STARRYDB_interpolated_pp_wc.csv'
+DATANAME = 'example_data.csv'
 DATAPATH = os.path.join(
     pathlib.Path(__file__).parent.absolute(),
     'data',
@@ -17,8 +17,10 @@ DATAPATH = os.path.join(
 
 #df = pd.read_csv(DATAPATH)#[::500]
 
+df = pd.read_csv(DATAPATH)
+
 # use this for testing
-df = pd.DataFrame(np.random.random((30, 4)), columns=['a','b','c','d'])
+#df = pd.DataFrame(np.random.random((30, 4)), columns=['a','b','c','d'])
 
 title = 'STARRYDB explorer'
 
@@ -58,7 +60,7 @@ external_stylesheets = ['stylesheet.css']
 app = dash.Dash(__name__,
                 #server=server,
                 external_stylesheets=external_stylesheets)
-server = app.server
+#server = app.server
 app.title=title
 
 # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
