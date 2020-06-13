@@ -15,15 +15,12 @@ DATAPATH = os.path.join(
     'data',
     DATANAME)
 
-
-# for reading data directly from Github - still some problem parsing it
-#DATAPATH = 'https://github.com/ericmuckley/hosted_dashboard/
-#blob/master/data/STARRYDB_interpolated_pp_wc.csv'
-
-df = pd.read_csv(DATAPATH)#[::500]
+#df = pd.read_csv(DATAPATH)#[::500]
 
 # use this for testing
-#df = pd.DataFrame(np.random.random((30, 4)), columns=['a','b','c','d'])
+df = pd.DataFrame(np.random.random((30, 4)), columns=['a','b','c','d'])
+
+title = 'STARRYDB explorer'
 
 
 # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -61,8 +58,8 @@ external_stylesheets = ['stylesheet.css']
 app = dash.Dash(__name__,
                 #server=server,
                 external_stylesheets=external_stylesheets)
-
-
+server = app.server
+app.title=title
 
 # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 # Put your Dash code here
@@ -71,7 +68,7 @@ app = dash.Dash(__name__,
 app.layout = html.Div(children=[
     
     # top heading
-    html.H1(children='STARRYDB explorer'),
+    html.H1(children=title),
 
 
     # create HTML division with paragraph for intro information
@@ -166,4 +163,4 @@ def update_output(value):
 
              
 if __name__ == '__main__':
-    app.run_server()#debug=True)
+    app.run_server(debug=False)
