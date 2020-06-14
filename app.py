@@ -64,7 +64,7 @@ def get_plot_layout(title='Title', xlabel='X-label', ylabel='Y-label'):
     
 
 # import data into dataframe
-df = pd.read_csv(DATAPATH)#[::50]
+df = pd.read_csv(DATAPATH)[::10]
 # use this for fast testing
 #df = pd.DataFrame(np.random.random((30, 4)), columns=['a','b','c','d'])
 
