@@ -12,7 +12,7 @@ To stop running the application, use `ctrl + c`
 ## File description
 
 * **app.py**: Main Python file which creates the dashboard application
-* **stylesheet.css**: CSS stylesheet which is called by **app.py** for styling the dashboard
+* **stylesheet.css**: CSS stylesheet which is called by **app.py** for styling the dashboard. This file must be in a directory called *assets*
 * **requirements.txt**: Requirements file for installing app dependencies with pip. This is also used by the application host
 * **Procfile**: file which Heroku uses to launch app
 * **runtime.txt**: file which Heroku uses to determine which Python runtime version to use
