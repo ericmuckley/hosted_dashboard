@@ -58,8 +58,8 @@ def get_plot_layout(title='Title', xlabel='X-label', ylabel='Y-label'):
         'title': title,
         'xaxis': {'title': xlabel},
         'yaxis': {'title': ylabel},
-        'width': 1000,
-        'height': 600,
+        #'width': 1000,
+        #'height': 600,
         'margin': {'l': 150, 'r': 150, 'b': 150, 't': 50}}
     return layout
      
@@ -172,7 +172,7 @@ app.layout = html.Div(children=[
     html.Br(),
 
     # create plot
-    dcc.Graph(id='graph', config={"displaylogo": False})
+    dcc.Graph(id='graph', config={"displaylogo": False}),
 
 
 ])
