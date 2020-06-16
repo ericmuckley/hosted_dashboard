@@ -58,6 +58,8 @@ def get_plot_layout(title='Title', xlabel='X-label', ylabel='Y-label'):
         'title': title,
         'xaxis': {'title': xlabel},
         'yaxis': {'title': ylabel},
+        'width': 1000,
+        'height': 600,
         'margin': {'l': 150, 'r': 150, 'b': 150, 't': 50}}
     return layout
      
@@ -126,7 +128,7 @@ app.layout = html.Div(children=[
             options=plotting_options,
             value=plotting_options[1]['value'],
             placeholder="Select variable for X-axis (optional)",
-            style=dict(width='60%', verticalAlign="middle"))]),
+            style=dict(width='50%', verticalAlign="middle"))]),
     
     
     
@@ -144,7 +146,7 @@ app.layout = html.Div(children=[
             options=plotting_options,
             value=plotting_options[2]['value'],
             placeholder="Select variable for Y-axis",
-            style=dict(width='60%', verticalAlign="middle"))]),
+            style=dict(width='50%', verticalAlign="middle"))]),
     
  
     
@@ -158,7 +160,7 @@ app.layout = html.Div(children=[
             id='filter_var_dropdown',
             options=filtering_options,
             placeholder="Select variable for filtering (optional)",
-            style=dict(width='60%', verticalAlign="middle"))]),   
+            style=dict(width='50%', verticalAlign="middle"))]),   
     
     
     html.Div([html.P([
@@ -266,4 +268,4 @@ def update_output(value):
 
              
 if __name__ == '__main__':
-    app.run_server(debug=False)
+    app.run_server(debug=True)

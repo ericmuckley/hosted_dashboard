@@ -44,6 +44,8 @@ To install packages from the requirements file: `pip install -r requirements.txt
 
 ## Free web hosting on Heroku
 
+Before deploying to the web, make sure that the app is not configured in `debug` mode. This is done by setting the line `app.run_server(debug=False)` in `app.py`.
+
 To host the application on the web using Heroku, first put it in a Github repository. Then follow these steps:
 
 * Setup account on Heroku
